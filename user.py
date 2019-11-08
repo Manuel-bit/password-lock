@@ -14,3 +14,13 @@ class User:
     function that saves new user objects
     '''
     User.user_list.append(self)
+
+  @classmethod
+  def find_by_name(cls, username):
+    '''
+    method that takes in user name and finds the user that matches it
+    '''
+    for user in cls.user_list:
+      if user.username == username:
+        return user
+
