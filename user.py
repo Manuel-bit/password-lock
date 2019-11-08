@@ -1,4 +1,6 @@
 class User:
+  user_list =[]
+  
   '''
   class that defines user blueprint
   '''
@@ -6,3 +8,9 @@ class User:
     self.username = username
     self.password = password
     self.email = email
+
+  def save_user(self):
+    '''
+    function that saves new user objects
+    '''
+    User.user_list.append(self)
