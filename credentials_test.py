@@ -1,5 +1,8 @@
 import unittest
 from credentials import Credentials
+import random
+import string
+import pyperclip
 
 class credentials_test(unittest.TestCase):
   '''
@@ -45,6 +48,47 @@ class credentials_test(unittest.TestCase):
     test_credential.save_credential()
     self.new_credential.delete_credential()
     self.assertEqual(len(Credentials.credentials_list),1)
+
+  def find_by_app_name(self):
+    '''
+    test that checks if we can search for an app by app name
+    '''
+    self.new_credential.save_credential()
+    test_credential = Credentials("facebook","face")
+    test_credential.save_credential()
+
+    found_credential = Credentials.find_by_app_name("facebook")
+    self.assertEqual(found_credential.app_Name,test_credential.appName)
+
+  def test_display_all_details(self):
+    '''
+    method tha returns credentials_list
+    '''
+    self.assertEqual(Credentials.display_credentials(),Credentials.credentials_list)
+
+  def test_generate_password(self):
+    '''
+    test that checks if password is generated correctly
+    '''
+    password = string.ascii_lowercase
+    return "".join(random.choice(password)for i in range(10))
+    self.assertTrue(len(password) > 0)
+
+  def test_coppy_name(self):
+    '''
+    test to confirm we can coppy appName
+    '''
+    self.new_credential.save_credential()
+    test_credential = Credentials("facebook","face")
+    test_credential.save_credential()
+    Credentials.coppy("facebook")
+
+    self.assertEqual(test_credential.appName, pyperclip.paste())
+
+
+
+
+
 
   
 
